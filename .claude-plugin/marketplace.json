@@ -1,0 +1,35 @@
+{
+  "name": "kt-skills",
+  "description": "Pattern-enforcement skills for kt-monorepo projects: project bootstrap, page/section/component scaffolding, and design-token migrations following the page-builder convention.",
+  "owner": {
+    "name": "Eleazar Junsan",
+    "url": "https://github.com/eljun"
+  },
+  "metadata": {
+    "pluginRoot": "./plugins",
+    "compatibility": "Compatible with npx skills and Claude plugin manifest discovery"
+  },
+  "plugins": [
+    {
+      "name": "kt",
+      "description": "Skills that bootstrap and extend kt-monorepo projects per the page-builder pattern (Next.js 16 + Sanity v5 + Tailwind 4 + shadcn/ui)",
+      "source": "kt",
+      "skills": [
+        "./skills/bootstrap-project"
+      ]
+    }
+  ],
+  "dependencies": {
+    "note": "kt-skills assumes the canonical stack. Companion repositories are listed for context.",
+    "repositories": [
+      {
+        "name": "eljun/kt-monorepo-template",
+        "description": "Canonical boilerplate cloned by bootstrap-project"
+      },
+      {
+        "name": "eljun/workflow-skills",
+        "description": "Development workflow chain: task -> implement -> simplify -> test -> document -> ship -> release"
+      }
+    ]
+  }
+}
