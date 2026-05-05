@@ -40,14 +40,12 @@ Install a single skill:
 npx skills add eljun/kt-skills --skill bootstrap-project -g -a claude-code
 ```
 
-> **Note:** This repo is currently private. To make it installable via `npx skills` for other machines or collaborators, change the GitHub visibility to public.
-
 ## Companion repositories
 
 | Repo | Purpose |
 |------|---------|
-| `eljun/kt-monorepo-template` | The canonical boilerplate cloned by `bootstrap-project` (TODO: not yet created) |
-| `eljun/workflow-skills` | The development workflow chain (`task` → `implement` → ... → `release`) |
+| [`eljun/kt-monorepo-template`](https://github.com/eljun/kt-monorepo-template) | The canonical boilerplate cloned by `bootstrap-project` |
+| [`eljun/workflow-skills`](https://github.com/eljun/workflow-skills) | The development workflow chain (`task` → `implement` → ... → `release`) |
 
 ## Canonical layout
 
