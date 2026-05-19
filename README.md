@@ -4,6 +4,34 @@ Pattern-enforcement skills for `kt-monorepo` projects — Next.js 16 + Sanity v5
 
 These skills are designed to be invoked from Claude Code, Codex CLI, or any other Agent Skills-compatible runtime.
 
+## Quick start
+
+1. **Install once per machine:**
+   ```bash
+   npx skills add eljun/kt-skills -g -a claude-code
+   ```
+2. **Check prerequisites** (one-time): Node ≥ 20, `gh auth status` returns logged in, `vercel whoami` returns a username, and a Sanity project created at <https://sanity.io/manage> (the skill never creates Sanity projects automatically).
+3. **Start a new project.** Open Claude Code in any directory and either:
+   - Invoke the slash command: `/bootstrap-project`
+   - Or describe the goal in natural language: *"Bootstrap a new project from the kt template"*, *"Start a new client site using kt-monorepo-template"*.
+
+The skill stops and confirms before each irreversible cloud action: GitHub repo creation, Vercel project link, and `git push`. Local actions (clone, npm install, initial commit) run without confirmation.
+
+### Inputs the skill will ask for
+
+Have these answers ready before you start — the skill walks through them in order:
+
+| # | Input | Example / default |
+|---|-------|-------------------|
+| 1 | Project slug (kebab-case) | `acme-wellness-spa` |
+| 2 | Project display name | `Acme Wellness Spa` |
+| 3 | Project description (one line) | `Boutique wellness studio in Brooklyn` |
+| 4 | Project directory | `~/Code/Personal/{slug}` |
+| 5 | Design tokens CSS file, or `skip` | `~/Brand/acme/tokens.css` |
+| 6 | GitHub visibility | `private` (default) or `public` |
+| 7 | Sanity project ID + dataset | from <https://sanity.io/manage> |
+| 8 | Vercel project name | defaults to slug |
+
 ## Skills
 
 | Skill | Purpose |
@@ -17,15 +45,11 @@ Future companions (planned, not yet implemented):
 - `add-component` — scaffold a UI primitive in `components/ui/` matching shadcn conventions
 - `migrate-tokens` — migrate raw Tailwind classes to design tokens after a token update
 
-## Install
+## Install variants
+
+The default install in [Quick start](#quick-start) covers most cases. Use these for other agents or partial installs.
 
 This repository follows the same install mechanism as `eljun/workflow-skills` (Vercel `npx skills`).
-
-Install all kt-skills globally for Claude Code:
-
-```bash
-npx skills add eljun/kt-skills -g -a claude-code
-```
 
 Install for a different agent:
 
@@ -55,6 +79,8 @@ kt-skills/
 │   └── marketplace.json          # plugin manifest for npx skills + Claude plugin discovery
 ├── plugins/
 │   └── kt/
+│       ├── commands/
+│       │   └── bootstrap-project.md   # slash command shim that invokes the skill
 │       └── skills/
 │           └── bootstrap-project/
 │               └── SKILL.md

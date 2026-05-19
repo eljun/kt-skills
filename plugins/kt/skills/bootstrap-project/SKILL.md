@@ -30,15 +30,16 @@ Run these checks first. If any fail, stop and report which one.
 
 1. **Project slug** — kebab-case, used for directory name and repo names. Example: `acme-wellness-spa`.
 2. **Project display name** — used in copy and `package.json`. Example: `Acme Wellness Spa`.
-3. **Project directory** — default: `~/Code/Personal/{slug}`.
-4. **Design tokens source** — one of:
+3. **Project description** — one-line tagline used in `package.json` description, `CLAUDE.md`, and `<title>` metadata. Example: `Boutique wellness studio in Brooklyn`.
+4. **Project directory** — default: `~/Code/Personal/{slug}`.
+5. **Design tokens source** — one of:
    - Absolute path to a CSS file containing the `@theme` block to inject into `app/globals.css`
    - `skip` — keep the template's placeholder palette
-5. **GitHub visibility** — `private` (default) or `public`.
-6. **Sanity project** — one of:
+6. **GitHub visibility** — `private` (default) or `public`.
+7. **Sanity project** — one of:
    - `existing` — user provides project ID + dataset name
    - `new` — user creates a project at https://sanity.io/manage in a new tab, then provides the project ID + dataset name (skill never creates Sanity projects automatically)
-7. **Vercel project name** — default: same as slug.
+8. **Vercel project name** — default: same as slug.
 
 ## Workflow
 
@@ -52,12 +53,15 @@ Run these checks first. If any fail, stop and report which one.
 4. **Substitute placeholders.** Status: "Substituting project placeholders..."
    - Find files containing placeholders: `grep -rl '{{PROJECT_' {target_dir}`
    - Replace `{{PROJECT_SLUG}}`, `{{PROJECT_NAME}}`, `{{PROJECT_DESCRIPTION}}` across all matches.
+   - The template's README documents the expected substitution surface — verify the grep result is non-empty before continuing.
 5. **Inject design tokens.** Status: "Injecting design tokens..." (skip if user chose `skip`)
    - Read user's tokens file.
    - Replace the `@theme { ... }` block in `{target_dir}/app/globals.css` with the user's contents. Preserve everything else in `globals.css`.
 6. **Wire Sanity config.** Status: "Wiring Sanity config..."
-   - Update `sanity/env.ts` (or wherever the template stores the project ID/dataset) with the user-provided values.
-   - Write the same values to `.env.local` if the template uses env vars (`NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`).
+   - Copy `.env.example` → `.env.local` in `{target_dir}`.
+   - In `.env.local`, replace `your-project-id` with the user-provided Sanity project ID.
+   - If the dataset name differs from `production`, update the `NEXT_PUBLIC_SANITY_DATASET` line accordingly.
+   - No code edits required: `sanity/sanity.config.ts` and `sanity.cli.ts` read `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` from the environment at runtime.
 7. **Install dependencies.** Status: "Installing dependencies (this may take a minute)..."
    ```bash
    cd {target_dir} && npm install
