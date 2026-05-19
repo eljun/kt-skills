@@ -16,13 +16,15 @@ npx skills add eljun/kt-skills --skill bootstrap-project -g -a claude-code
 
 ## Invocation
 
-Skills are matched by their `description` field. To trigger `bootstrap-project`, ask Claude something like:
+You can trigger `bootstrap-project` two ways:
 
-- "Bootstrap a new project."
-- "Start a new client site using the kt template."
-- "I need to spin up a new monorepo for {client name}."
+1. **Slash command** — `/bootstrap-project` (registered by the plugin at `plugins/kt/commands/bootstrap-project.md`; discoverable via `/help` and tab-completion). Note: this depends on Claude Code's auto-discovery of plugin `commands/` directories and has not yet been exercised end-to-end — if it fails to register, fall back to the description-match invocation below and please file an issue.
 
-If you've configured slash commands, you may also expose the skill as `/bootstrap-project`.
+2. **Description match** — skills are also matched by their `description` field, so a natural-language prompt works:
+
+   - "Bootstrap a new project."
+   - "Start a new client site using the kt template."
+   - "I need to spin up a new project for {client name}."
 
 ## Reasoning tier
 
