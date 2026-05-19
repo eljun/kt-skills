@@ -32,8 +32,6 @@ Have these answers ready before you start — the skill walks through them in or
 | 7 | Sanity project ID + dataset | from <https://sanity.io/manage> |
 | 8 | Vercel project name | defaults to slug |
 
-If you need an item later than expected, say `pause` — the skill will not invent inputs on your behalf.
-
 ## Skills
 
 | Skill | Purpose |
